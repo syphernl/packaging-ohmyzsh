@@ -1,0 +1,15 @@
+image: registry.gitlab.com/syphernl/docker-builder-trusty:latest
+
+#build:
+#  stage: build
+#  before_script:
+#    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
+#  only:
+#    - master
+
+package:
+  stage: package
+  script: cd /build; ./prepare.sh; ./update.sh && ./build.sh && chown 1000:1000 packages -R
+  artifacts:
+    paths:
+    - packages/*.deb
